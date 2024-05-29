@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .jumbotron {
+      background-color: #0091ff;
+      color: #ffffff;
+    }
+
+    .btn {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron text-center">
+      <h2 class="display-4">Welcome</h2>
+      {% if user.is_authenticated %}
+        <p class="lead">Hi, {{ user.username }}!</p>
+        <a href="/signout" class="btn btn-danger">Logout</a>
+      {% else %}
+        <p class="lead">Please sign in or sign up to get started.</p>
+        <a href="/signin" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+        <a href="/signup" class="btn btn-success">Signup</a>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,770 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudSto - Responsive Media Website</title>
+  <!-- Include jQuery -->
+  
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+
+
+
+  <!-- ICONSCOUT CDN -->
+  
+<link rel="stylesheet" type="text/css" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+  
+<link rel="stylesheet"  type="text/css"  href="{% static 'feedPosts/css/style.css' %}">
+<style>
+  .photo-gallery {
+    width: 100%; /* Adjust as needed */
+    overflow: hidden;
+}
+
+.scrolling-container {
+    display: flex;
+    animation: scroll 15s linear infinite; /* Adjust duration as needed */
+}
+
+.scrolling-item {
+    width: 100%; /* Adjust as needed */
+    flex-shrink: 0;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-500%);
+    }
+}
+</style>
+  
+</head>
+
+<body>
+  <nav>
+    <div class="container">
+      <h2 class="logo">StudSto</h2>
+      <div class="search-bar">
+        <i class="uil uil-search"></i>
+        <input type="search" placeholder="Search for creators, inspiration and projects">
+      </div>
+      <div class="create">
+        <label for="create-post" class="btn btn-primary"><a href="/home" style="text-decoration: none; color: white;">Logout</a></label>
+          <div class="profile-photo">
+          <img src="{{ profile_picture }}">
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- MAIN -->
+  <main>
+    <div class="container">
+      <!-- LEFT -->
+      <div class="left">
+        <a href="#" class="profile">
+          <div class="profile-photo">
+            <img src="{{ profile_picture }}">
+          </div>
+          <div class="handle">
+            <h4>{{ user_profile.0.firstname }} {{ user_profile.0.lastname }}</h4>
+            <p class="text-muted">@{{ user_profile.0.username }}</p>
+        </div>
+        </a>
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+          <a href="#" class="menu-item active"><span><i class="uil uil-home"></i></span>
+            <h3>Home</h3>
+          </a>
+          <a href="#" class="menu-item"><span><i class="uil uil-compass"></i></span>
+            <h3>Explore</h3>
+          </a>
+          <a href="#" class="menu-item" id="notifications"><span><i class="uil uil-bell"><small
+                  class="notification-count">6</small></i></span>
+            <h3>Notifications</h3>
+            <!-- NOTIFICATION POPUP -->
+            <div class="notifications-popup" >
+              <div>
+                <div class="profile-photo">
+                  <img src="{% static 'feedPosts/images/profile-2.jpg' %}">
+                </div>
+                <div class="notification-body">
+                  <b>Keke Benjamin</b> accepted your friend request
+                  <small class="text-muted">2 DAYS AGO</small>
+                </div>
+              </div>
+              <div>
+                <div class="profile-photo">
+                  <img src="{% static 'feedPosts/images/profile-3.jpg' %}">
+                </div>
+                <div class="notification-body">
+                  <b>John Doe</b> commented your post
+                  <small class="text-muted">1 HOUR AGO</small>
+                </div>
+              </div>
+              <div>
+                <div class="profile-photo">
+                  <img src="{% static 'feedPosts/images/profile-4.jpg' %}">
+                </div>
+                <div class="notification-body">
+                  <b>Mary Oppong </b>and <b>283 others</b> liked your post
+                  <small class="text-muted">4 MINUTES AGO</small>
+                </div>
+              </div>
+              <div>
+                <div class="profile-photo">
+                  <img src="{% static 'feedPosts/images/profile-5.jpg' %}">
+                </div>
+                <div class="notification-body">
+                  <b>Doris Y. Lartey</b> commented on a post you are tagged in
+                  <small class="text-muted">2 DAYS AGO</small>
+                </div>
+              </div>
+              <div>
+                <div class="profile-photo">
+                  <img src="{% static 'feedPosts/images/profile-6.jpg' %}">
+                </div>
+                <div class="notification-body">
+                  <b>Lisa Trump</b> commented on a post you are tagged in
+                  <small class="text-muted">1 HOUR AGO</small>
+                </div>
+              </div>
+              <div>
+                <div class="profile-photo">
+                  <img src="{% static 'feedPosts/images/profile-7.jpg' %}">
+                </div>
+                <div class="notification-body">
+                  <b>Jane Doe</b> commented your post
+                  <small class="text-muted">1 HOUR AGO</small>
+                </div>
+              </div>
+            </div>
+            <!-- END OF NOTIFICATION POPUP -->
+          </a>
+          <a href="#" class="menu-item" id="messages-notification"><span><i class="uil uil-envelope-alt"><small
+                  class="notification-count">6</small></i></span>
+            <h3>Messages</h3>
+          </a>
+          <a href="#" class="menu-item" id="theme"><span><i class="uil uil-palette"></i></span>
+            <h3>Theme</h3>
+          </a>
+          <a href="#" class="menu-item"><span><i class="uil uil-setting"></i></span>
+            <h3>Settings</h3>
+          </a>
+        </div>
+        <!-- END OF SIDEBAR -->
+        <label for="create-post" class="btn btn-primary">Create Post</label>
+      </div>
+      <!-- END OF LEFT -->
+      <!-- MIDDLE -->
+      <div class="middle" id="middle">
+        <!-- STORIES -->
+        <div class="stories">
+          <div class="story">
+            <div class="profile-photo">
+              <img src="{{ profile_picture }}">
+            </div>
+            <p class="name">Your story</p>
+          </div>
+          
+          <!-- END OF STORIES -->
+        </div>
+        <style>
+            .styled-input {
+              background: 0;
+              border: 0;
+              outline: none;
+              width: 100%;
+              max-width: 100%;
+              font-size: 0.9em;
+              transition: padding 0.3s 0.2s ease;
+            }
+
+            .styled-input:focus {
+              padding-bottom: 5px;
+            }
+
+            .styled-input:focus + .line:after {
+              transform: scaleX(1);
+            }
+
+            .field {
+              position: relative;
+              margin: 10px 5px 10px 5px;
+              align-items: center;
+            }
+
+            .field .line {
+              width: 100%;
+              height: 3px;
+              position: absolute;
+              bottom: -8px;
+              background: #bdc3c7;
+              margin-bottom: 15px;
+            }
+
+            .field .line:after {
+              content: " ";
+              position: absolute;
+              float: right;
+              width: 100%;
+              height: 3px;
+              transform: scalex(0);
+              transition: transform 0.3s ease;
+              background: #891abc;
+            }
+        </style>
+        <form class="create-post" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="profile" style="width: 100%; display: flex; flex-direction: row; ">
+            <div class="profile-photo" >
+              <img src="{{ profile_picture }}">
+            </div>
+            <div class="handle" style="margin-left: 10px;">
+              <h4>{{ user_profile.0.firstname }} {{ user_profile.0.lastname }}</h4>
+              <p class="text-muted">@{{ user_profile.0.username }}</p>
+          </div>
+        </div>
+          
+          <div class="fields" style="width: 100%;">
+            <div class="field">
+            <input type="text" name="designation" placeholder="Designation du projet" class="styled-input product-input">
+            <div class="line"></div>
+            </div>
+            <div class="field">
+              <input type="text" name="description" placeholder="Description" class="styled-input product-input">
+              <div class="line"></div>
+            </div>
+            <div class="field">
+            <input type="number" name="price" placeholder="Prix" class="styled-input product-input" style="margin-bottom: 15px;">
+            <div class="line"></div>
+            </div>
+            <div class="field">
+            <div class="category-dropdown">
+              <select id="category" name="category" class="styled-input product-input" style="align-items: center;">
+                {% for category in categories %}
+                <option value="{{ category.catId }}">{{ category.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            </div>
+            <div style="display: flex; flex-direction: row; width: 100%;">
+            <input type="file" id="image-upload" name="image" accept="image/*" style="display: none;" multiple>
+            <button type="button" onclick="document.getElementById('image-upload').click();" style="width: 50%; background-color: transparent;" >
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="var(--color-primary)" class="bi bi-images" viewBox="0 0 16 16">
+                <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2M14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1M2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1z"/>
+              </svg>
+            </button>
+          <input type="submit" value="Post" class="btn btn-primary" style="width: 50%; margin: auto;">
+        </div>
+          </div>
+        </form>
+        <!-- FEEDS -->
+        <div class="feeds">
+          {% for product in products %}
+          <div class="feed" >
+              <div class="head">
+                  <div class="user">
+                      <div class="profile-photo">
+                          <img src="media/{{ product.shared_by_ProfilePic }}">
+                      </div>
+                      <div class="info" style="justify-content: flex-start;">
+                          <h3>{{ product.shared_by_firstname|title }} {{ product.shared_by_lastname|title }} <span class="text-muted">@{{ product.shared_by_username }}</span></h3>
+                          <small>{{ product.created_at|timesince }} AGO</small>
+                      </div>
+                      
+                  </div>
+                  <span class="edit">
+                      <i class="uil uil-ellipsis-h"></i>
+                  </span>
+              </div>
+              <div class="photo">
+                <div class="photo-gallery">
+                  <div class="scrolling-container" >
+        
+                  <!-- Assuming you have a field 'image' in ProductImage model -->
+                  {% for image in product.images %}
+                  <div class="scrolling-item" >
+                  <!-- Assuming you have a field 'image' in ProductImage model -->
+                  <img src="{{ image }}" alt="Product Image">
+                  </div>
+                {% endfor %}
+                  </div>
+                </div>
+                </div>
+                <script>
+                  // Calculate the animation duration based on the number of images
+                  var imageCount = {{ product.images|length }};
+                  var animationDuration = imageCount * 5; // Adjust as needed
+              
+                  // Apply the animation duration to the scrolling container
+                  var scrollingContainer = document.querySelector('.scrolling-container');
+                  scrollingContainer.style.animation = 'scroll ' + animationDuration + 's linear infinite';
+              </script>
+              
+              <div class="action-buttons">
+                  <div class="interaction-buttons">
+                    <input type="hidden" id="productId" value="{{ product.id }}">
+
+                      <span title="Like" id="likeButton" onclick="addLike()"><i class="uil uil-heart"></i></span>
+                      <span title="Comment" onclick="addComment()"><i class="uil uil-comment-dots"></i></span>
+                      <span title="Send Message" class="MsgButton" data-product-id="{{product.id}}"><i class="uil uil-message"></i></span>
+                  </div>
+                  <div class="bookmark">
+                    <span class="tag">
+                        $ {{ product.price }}
+                    </span>
+                </div>
+              </div>
+              <div class="liked-by">
+                  <span>
+                      <img src="{{ profile_picture }}">
+                  </span>
+                  <p>Liked by <b>{{ product.shared_by_username }} </b>and <b>{{ product.likes|length }} others</b></p>
+              </div>
+              <div class="caption">
+                  <p><b>{{ product.shared_by_username }}</b> {{ product.description }}</p>
+              </div>
+              <div class="comments text-muted">
+                  View all {{ product.reviews|length }} comments
+              </div>
+          </div>
+          {% endfor %}
+        </div>
+        
+<!-- END OF FEEDS -->
+      </div>
+      <!-- END OF MIDDLE -->
+      <!-- RIGHT -->
+      <div class="right">
+        <!-- MESSAGES -->
+        <div class="messages" id="outer-messages">
+          <div class="heading">
+            <h4>Messages</h4><i class="uil uil-edit"></i>
+          </div>
+          <!-- SEARCH BAR -->
+          <div class="search-bar">
+            <i class="uil uil-search"></i>
+            <input type="search" id="message-search" placeholder="Search messages">
+          </div>
+          <!-- MESSAGES CATEGORY -->
+          <div class="category">
+            <h6 class="active">Primary</h6>
+            <h6>General</h6>
+            <h6 class="message-requests">Requests{3}</h6>
+          </div>
+          <!-- MESSAGE -->
+          <div id="innerTest">
+          <div id="innerdata"> 
+           <p>{% for discussion in discussions %}</p> 
+          <div class="message" data-inner-id="{{ discussion.discussionId }}">
+            <div class="profile-photo">
+              <img src="media/{{discussion.sender_image }}">
+            </div>
+            <div class="message-body">
+              <h5>{{ discussion.last_message_sender }}</h5>
+              <p class="text-muted">{{ discussion.last_message_content }}</p>
+            </div>
+          </div>
+          {% endfor %}
+          </div>
+        </div>
+        </div>
+        <!-- END OF MESSAGES -->
+
+        <!-- Inner Message-->
+
+        <div class="messages" id="inner-messages" style="display: none; overflow: scroll;">
+          <div class="heading">
+            <a id="returnBack"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#8970eb" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5"/>
+            </svg></a>
+            <h4>@Ysf_Hj</h4><i class="uil uil-edit"></i>
+          </div>
+          
+          <!-- MESSAGES CATEGORY -->
+          <div class="category">
+            <h6 class="active">@john_Doe</h6>
+          </div>
+          <!-- MESSAGE -->
+          <div class="message">
+            <div class="profile-photo">
+              <img src="{% static 'feedPosts/images/profile-2.jpg' %}">
+            </div>
+            <div class="message-body">
+              <h5>Eden Quist</h5>
+              <p class="text-muted">Just woke up, bruh</p>
+            </div>
+          </div>
+          <div class="message" style="width: 100%; display: flex; justify-content: flex-end">
+            
+            <div  class="message-body">
+              <h5 style="text-align: right;">john Doe</h5>
+              <p style="text-align: right;" class="text-muted">Maybe you need to fix your sleep akhay l3erwi</p>
+            </div>
+            <div class="profile-photo">
+              <img src="{% static 'feedPosts/images/profile-4.jpg' %}" >
+            </div>
+          </div>
+
+          <!-- SEARCH BAR -->
+          <form id="message-form" method="post">
+          <div class="search-bar">
+              {% csrf_token %}
+              <input type="search" id="message-content" placeholder="Send message" >
+            <button type="submit" style="right: 0;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+              <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
+            </svg>
+          </button>
+          </div>
+        </form>
+
+          
+          
+          
+        </div>
+        <!-- End Inner Message-->
+
+        
+        
+
+
+        <!-- FRIEND REQUSTS -->
+        <div class="friend-requests">
+          <h4>Requests</h4>
+          <div class="request">
+            <div class="info">
+              <div class="profile-photo">
+                <img src="{% static 'feedPosts/images/profile-14.jpg' %}">
+              </div>
+              <div>
+                <h5>Hajia Bintu</h5>
+                <p class="text-muted">8 mutual friends</p>
+              </div>
+            </div>
+            <div class="action">
+              <button class="btn btn-primary">Accept</button>
+              <button class="btn">Decline</button>
+            </div>
+          </div>
+          <div class="request">
+            <div class="info">
+              <div class="profile-photo">
+                <img src="{% static 'feedPosts/images/profile-12.jpg' %}">
+              </div>
+              <div>
+                <h5>Jacqueline Mensah</h5>
+                <p class="text-muted">1 mutual friend</p>
+              </div>
+            </div>
+            <div class="action">
+              <button class="btn btn-primary">Accept</button>
+              <button class="btn">Decline</button>
+            </div>
+          </div>
+          <div class="request">
+            <div class="info">
+              <div class="profile-photo">
+                <img src="{% static 'feedPosts/images/profile-10.jpg' %}">
+              </div>
+              <div>
+                <h5>Sarah King</h5>
+                <p class="text-muted">5 mutual friends</p>
+              </div>
+            </div>
+            <div class="action">
+              <button class="btn btn-primary">Accept</button>
+              <button class="btn">Decline</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END OF RIGHT -->
+      <!-- THEME CUSTOMIZATION -->
+      <div class="customize-theme">
+        <div class="card">
+          <h2>Customize your view</h2>
+          <p class="text-muted">Manage your font size, color and background</p>
+          <!-- FONT SIZES -->
+          <div class="font-size">
+            <h4>Font Size</h4>
+            <div>
+              <h6>Aa</h6>
+              <div class="choose-size">
+                <span class="font-size-1"></span>
+                <span class="font-size-2 active"></span>
+                <span class="font-size-3"></span>
+                <span class="font-size-4"></span>
+                <span class="font-size-5"></span>
+              </div>
+              <h3>Aa</h3>
+            </div>
+          </div>
+          <!-- PRIMARY COLORS -->
+          <div class="color">
+            <h4>Color</h4>
+            <div class="choose-color">
+              <span class="color-1 active"></span>
+              <span class="color-2"></span>
+              <span class="color-3"></span>
+              <span class="color-4"></span>
+              <span class="color-5"></span>
+            </div>
+          </div>
+          <!-- BACKGROUND COLORS -->
+          <div class="background">
+            <h4>Bacground</h4>
+            <div class="choose-bg">
+              <div class="bg-1 active">
+                <span></span>
+                <h5 for "bg-1">Light</h5>
+              </div>
+              <div class="bg-2">
+                <span></span>
+                <h5>Dim</h5>
+              </div>
+              <div class="bg-3">
+                <span></span>
+                <h5 for "bg-3">Lights out</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END OF THEME CUSTOMIZATION -->
+  </main>
+</body>
+
+<script src="{% static 'feedPosts/js/index.js' %}"></script>
+
+<script>
+const ghatest = document.querySelector('.sidebar');
+function adjustMiddleClass() {
+    const notificationsDiv = document.querySelector('#notifications');
+    const middleDiv = document.getElementById('middle');
+    if (notificationsDiv.classList.contains('active')) {
+        // If notifications div has 'menu-item' and 'active', add 'middle2' to 'middle'
+        middleDiv.classList.add('middle2');
+    } else {
+        // If not, remove 'middle2' from 'middle'
+        console.log("khdama");
+        middleDiv.classList.remove('middle2');
+    }
+}
+
+menuItems.forEach((item) => {
+    item.addEventListener('click', () => {
+        changeActiveItem();
+        item.classList.add('active');
+        if (item.id != 'notifications') {
+            $('.notifications-popup').hide();
+        } else {
+            adjustMiddleClass();
+            $('#notifications .notification-count').hide();
+            $('.notifications-popup').show();
+        }
+    });
+});
+
+// Assuming 'middleDiv' is defined globally or within the same scope as 'adjustMiddleClass'
+ghatest.addEventListener('click', () => {
+    adjustMiddleClass();
+    console.log("waaalo");
+});
+
+
+
+  var userId = "{{ request.user.id }}";
+  var discId;
+  function showMessageDetails(discussionId2) {
+  // Perform an AJAX request to retrieve the specific discussion
+  $.ajax({
+    url: `/get_discussion/${discussionId2}/`,
+    type: 'GET',
+    success: function (data) {
+        // Update heading and category
+        $('#inner-messages .heading h4').text(data.title);
+        $('#inner-messages .category h6').text('@' + data.connected.username);
+
+        // Clear existing messages
+        $('#inner-messages .message').remove();
+        var innerMessagesContainer = $('#inner-messages');
+        // Append new messages
+        for (var i = 0; i < data.messages.length; i++) {
+            var message = data.messages[i];
+            var isCurrentUser = message.sender.username === data.connected.username;
+            var profilePhotoPosition = isCurrentUser ? 'flex-end' : 'flex-start';
+            var messageHtml = '<div class="message" style="' + (isCurrentUser ? 'width: 100%; display: flex; justify-content: flex-end' : '') + '">' +
+                '<div class="profile-photo">' +
+                '<img src="media/' + message.sender.image + '">' +
+                '</div>' +
+                '<div class="message-body" >' +
+                '<h5 style="' + (isCurrentUser ? 'text-align: right;' : '') + '">' + message.sender.username + '</h5>' +
+                '<p class="text-muted">' + message.content + '</p>' +
+                '</div>' +
+                '</div>'+
+                '</div>';
+
+            $('#inner-messages').append(messageHtml);
+            console.log(discId);
+            discId = data.discId;
+            console.log(discId);
+        }
+        
+        // Display inner-messages and hide outer-messages
+        $('#outer-messages').hide();
+        $('#inner-messages').show();
+    },
+    error: function (error) {
+        console.error('Error fetching discussion details:', error);
+    }
+});
+}
+
+  // Attach a click event listener to the message div
+  $('.message').click(function () {
+    var discussionId = $(this).data('inner-id');
+    console.log(discussionId);
+    showMessageDetails(discussionId);
+  });
+
+  // Function to return back to outer-messages
+  $('#returnBack').click(function () {
+    $('#inner-messages').hide();
+    $('#outer-messages').show();
+  });
+
+
+  function submitMessageForm(content , Idisc) {
+    // Perform an AJAX request to submit the form
+    $.ajax({
+      url: '/send_message/',  // Update the URL with your Django URL pattern
+      type: 'POST',
+      data: {
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        userId: userId,
+        content: content,
+        discId:discId
+      },
+      success: function (data) {
+        console.log("success");
+        console.log(discId);
+
+        showMessageDetails(discId);
+      },
+      error: function (error) {
+        console.error('Error submitting message:', error);
+      }
+    });
+  }
+
+  // Attach a submit event listener to the form
+  $('#message-form').submit(function (e) {
+    e.preventDefault();  // Prevent the default form submission
+
+    var content = $('#message-content').val();  // Get the message content
+    submitMessageForm(content , discId);  // Submit the form with the message content
+    $('#message-content').val('');
+  });
+
+  // Function to return back to outer-messages
+  $('#returnBack').click(function () {
+    $('#inner-messages').hide();
+    $('#outer-messages').show();
+  });
+
+  $(document).ready(function () {
+    const form = $('.create-post');
+
+    form.submit(function (event) {
+      event.preventDefault();
+
+      // Collect form data
+      const formData = new FormData(this);
+
+      // Make an AJAX request using jQuery
+      $.ajax({
+        url: '/save_product/', // Replace with your actual endpoint
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          location.reload();
+        },
+        error: function (error) {
+          // Handle errors
+          console.error('Error:', error);
+        }
+      });
+    });
+  });
+
+    function addLike() {
+        // Get the product ID from the hidden input
+        var productId = $('#productId').val();
+
+        // Make an AJAX request
+        $.ajax({
+              url: '/add_like/',
+              type: 'POST',
+              data: {
+                  'product_id': productId,
+                  csrfmiddlewaretoken: '{{ csrf_token }}',
+              },
+              success: function (data) {
+                  if (data.status === 'success') {
+                      console.log('Like added successfully');
+                      $('#likeButton i').toggleClass('filled');
+                  } else if (data.status === 'already_liked') {
+                      console.log('Post already liked by the user');
+                      // Optionally, you can update the UI to reflect this
+                  }
+              },
+              error: function (error) {
+                  console.error('Error adding like:', error);
+              }
+          });
+    }
+    function createMsg (prdId) {
+    
+    $.ajax({
+        type: 'POST',
+        url: '/create_conversation/',
+        data: {
+            'product_id': prdId,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        },
+        success: function(response) {
+            showMessageDetails(response.discussion.id);
+            discId=response.discussion.id;
+            // Handle success, e.g., show a success message
+            console.log('Conversation created successfully');
+        },
+        error: function(error) {
+            // Handle error, e.g., show an error message
+            console.log('Error creating conversation');
+        }
+    });
+}
+$('.MsgButton').click(function () {
+    var productId = $(this).data('product-id');
+    console.log(productId);
+    createMsg(productId);
+    $('html, body').animate({
+        scrollTop: $('#outer-messages').offset().top
+    }, 500);
+});
+</script>
+
+</html>
+
